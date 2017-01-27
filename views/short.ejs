@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <link rel = "stylesheet" href = "/css/bootstrap.min.css" >
+		<script src = "https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js" ></script>
+  	<style type="text/css">
+  		#para{
+
+            font-size : 30px;
+            font-color : 'blue';
+        }
+        #main{
+        	background-color: #8888ff;
+        }
+  	</style>
+
+  </head>
+  <body>
+    <div class="row container">
+    	<div class="container pull-left" id="para">
+    		ShortenUrl
+    	</div>
+    </div>
+    <div class = 'row' id="main">
+    	<br><br><br>
+    	<div class="col-md-1">
+    	</div>
+    	<div class = "col-md-6">
+    	<input type="text" id="txt" class="form-control" placeholder="Enter Your URL Here ..."><br>
+    	<center><button type="button" id="sub-btn" class="btn btn-primary btn-lg">ShortenUrl</button></center>
+    	</div>
+    </div> 
+    <br><br><br>
+    <div class = "container">
+      
+    <table class = "table table-bordered table-striped" border = '3' cellpadding = "1" cellpadding = "1" >
+    <thead bgcolor = "lightblue" class = "text-center" >
+      <tr>
+        <th class = "text-center" > Sr No.</th>
+        <th class = "text-center" >Name</th>
+      
+        <th class = "text-center" >Short Url</th>
+        
+        
+      </tr>
+      </thead>
+      <tbody>
+      <% url.forEach(function (e, i){ %>
+      <tr>
+
+        <td class = "text-center" ><%= i+1 %></td>
+        <td class = "text-center" ><%= e.name %></td>
+        <td class = "text-center" ><a href = '/<%= e.short %>'><%= e.short%></a></td>
+        
+      </tr>
+     
+      <%});%>
+      </tbody>
+    </table>
+    <script type="text/javascript">
+      $("#sub-btn").click(function (){
+        
+        console.log("inside the button");
+        var actual = $("#txt").val();
+        console.log(actual);
+        $.ajax({
+
+          url : '/shorturl/short',
+          type: 'post',
+          data : {actual : actual},
+          success : function(result){ 
+
+            //console.log(result);
+            window.location.reload();
+            
+            }               
+        });   
+      });
+
+    
+    </script>
+  </body>
+</html>
